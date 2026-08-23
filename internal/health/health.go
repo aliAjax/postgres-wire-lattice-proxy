@@ -20,6 +20,9 @@ func New() *Registry { return &Registry{checks: make(map[string]Check)} }
 func (r *Registry) Set(name string, ok bool, detail string) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
+	if r.checks == nil {
+		r.checks = make(map[string]Check)
+	}
 	r.checks[name] = Check{name, ok, detail, time.Now()}
 }
 func (r *Registry) Ready() bool {

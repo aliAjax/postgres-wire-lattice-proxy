@@ -28,7 +28,7 @@ func (h *Hysteresis) Observe(ok bool) bool {
 	if time.Since(h.last) < h.cooldown {
 		return false
 	}
-	if h.good > h.threshold || h.bad > h.threshold {
+	if h.good >= h.threshold || h.bad >= h.threshold {
 		h.last = time.Now()
 		return true
 	}

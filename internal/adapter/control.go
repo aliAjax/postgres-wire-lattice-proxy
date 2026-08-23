@@ -21,7 +21,7 @@ func (c *Control) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusOK); w.Write([]byte("ok\n")) })
 	mux.HandleFunc("/readyz", func(w http.ResponseWriter, r *http.Request) {
-		if !c.Health.Ready() {
+		if c.Health == nil || !c.Health.Ready() {
 			http.Error(w, "not ready", 503)
 			return
 		}

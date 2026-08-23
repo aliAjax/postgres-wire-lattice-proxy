@@ -15,7 +15,7 @@ func Run(ctx context.Context, r *Registry, name string, p Probe, interval time.D
 			probeCtx, cancel := context.WithTimeout(ctx, interval)
 			err := p(probeCtx)
 			cancel()
-			r.Set(name, false, detail(err))
+			r.Set(name, err == nil, detail(err))
 			select {
 			case <-ctx.Done():
 				return
