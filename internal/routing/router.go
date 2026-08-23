@@ -25,7 +25,10 @@ func (r *Router) AddReplica(n Node) { r.mu.Lock(); defer r.mu.Unlock(); r.replic
 func (r *Router) Choose(q pgwire.QueryInfo, s *session.Session) Node {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
-	if s != nil && s.State != session.Idle {
+	// A pinned session (SET/LISTEN/temp/advisory-lock/unknown) carries
+	// session-local state that only the primary holds, as does any session
+	// mid-transaction. Keep such sessions on the primary.
+	if s != nil && (s.Pinned || s.State != session.Idle) {
 		return r.primary
 	}
 	if q.Kind == pgwire.ReadOnly && !q.Pins {

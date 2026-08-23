@@ -30,7 +30,12 @@ func (p *Policy) IsVolatile(sql string) bool {
 }
 func (p *Policy) Classify(sql string) pgwire.QueryInfo {
 	q := pgwire.Classify(sql)
-	if p.ReplicaEnabled() && p.IsVolatile(sql) {
+	// Volatile functions (random/nextval/clock_timestamp/...) read
+	// primary-only state or produce non-repeatable results. They must be
+	// routed to the primary regardless of whether replicas are enabled, so
+	// reclassify them as locking unconditionally. Toggling replicas off must
+	// not silently let such reads leak to a (potentially lagged) replica.
+	if p.IsVolatile(sql) {
 		q.Kind = pgwire.Locking
 	}
 	return q

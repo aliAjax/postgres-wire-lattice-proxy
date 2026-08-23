@@ -71,7 +71,9 @@ func ioClosed() error { return errors.New("connection closed") }
 func (m *StateMachine) Complete() {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	if m.phase == PhaseQuery {
+	// A finished simple query or extended-query sequence returns the
+	// connection to the idle/ready state so the next message is accepted.
+	if m.phase == PhaseQuery || m.phase == PhaseExtended {
 		m.phase = PhaseReady
 	}
 }

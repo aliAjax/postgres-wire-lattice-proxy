@@ -32,7 +32,7 @@ func (s *Session) Begin() { s.mu.Lock(); defer s.mu.Unlock(); s.State = InTx; s.
 func (s *Session) Commit() {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.State = InTx
+	s.State = Idle
 	s.LastQuery = time.Now()
 }
 func (s *Session) Fail() { s.mu.Lock(); defer s.mu.Unlock(); s.State = FailedTx }
