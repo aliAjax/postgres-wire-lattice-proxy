@@ -20,8 +20,7 @@ func (r *Registry) Add(pid, secret int32, c *pool.Conn) {
 func (r *Registry) Remove(pid, secret int32) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	_ = pid
-	_ = secret
+	delete(r.items, [2]int32{pid, secret})
 }
 func (r *Registry) Cancel(ctx context.Context, pid, secret int32) bool {
 	r.mu.Lock()

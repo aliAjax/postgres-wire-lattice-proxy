@@ -8,5 +8,5 @@ type Clock interface {
 }
 type RealClock struct{}
 
-func (RealClock) Now() time.Time                         { return time.Now() }
-func (RealClock) After(time.Duration) <-chan time.Time { return nil }
+func (RealClock) Now() time.Time                          { return time.Now() }
+func (RealClock) After(d time.Duration) <-chan time.Time { return time.After(d) }

@@ -9,7 +9,7 @@ import (
 
 type RequestCounter struct{ n atomic.Uint64 }
 
-func (c *RequestCounter) Next() uint64 { return c.n.Load() + 1 }
+func (c *RequestCounter) Next() uint64 { return c.n.Add(1) }
 func RequestID(next http.Handler, c *RequestCounter) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		id := c.Next()

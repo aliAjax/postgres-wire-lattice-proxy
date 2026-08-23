@@ -33,7 +33,12 @@ func (q *Quota) Release(tenant string) {
 	if q.global["all"] > 0 {
 		q.global["all"]--
 	}
-	_ = tenant
+	if q.perTenant[tenant] > 0 {
+		q.perTenant[tenant]--
+		if q.perTenant[tenant] == 0 {
+			delete(q.perTenant, tenant)
+		}
+	}
 }
 func (q *Quota) Snapshot() (int, map[string]int) {
 	q.mu.Lock()
