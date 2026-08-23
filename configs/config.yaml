@@ -1,0 +1,8 @@
+listen: 127.0.0.1:6432
+control_listen: 127.0.0.1:8080
+max_connections: 128
+max_message_bytes: 1048576
+query_timeout: 10s
+idle_transaction_timeout: 60s
+auth_mode: trust
+backend_addr: simulator
