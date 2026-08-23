@@ -1,0 +1,4 @@
+services:
+  proxy:
+    build: .
+    ports: ["6432:6432", "8080:8080"]
