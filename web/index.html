@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PG Lattice Proxy</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #10151c; color: #e8eef5; }
+    main { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
+    h1 { margin-bottom: 8px; font-size: 2rem; }
+    p { color: #aab8c7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 28px; }
+    a { display: block; padding: 18px; border: 1px solid #2d3b4b; border-radius: 8px; color: #8ed1ff; text-decoration: none; }
+    a:hover { border-color: #8ed1ff; }
+    code { color: #c7e9ff; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>PG Lattice Proxy</h1>
+    <p>Operational links for the PostgreSQL wire-aware proxy.</p>
+    <section class="grid" aria-label="proxy endpoints">
+      <a href="http://127.0.0.1:8080/healthz">Health check</a>
+      <a href="http://127.0.0.1:8080/readyz">Readiness</a>
+      <a href="http://127.0.0.1:8080/v1/status">Pool status</a>
+      <a href="http://127.0.0.1:8080/metrics">Metrics</a>
+    </section>
+    <p><code>CONTROL_LISTEN</code> selects the control API address.</p>
+  </main>
+</body>
+</html>
