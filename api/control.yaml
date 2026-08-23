@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: pg-lattice-proxy control API
+  version: 1.0.0
+paths:
+  /healthz: {get: {responses: {"200": {description: healthy}}}}
+  /readyz: {get: {responses: {"200": {description: ready}}}}
+  /v1/status: {get: {responses: {"200": {description: status}}}}
